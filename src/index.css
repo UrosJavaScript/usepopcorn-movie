@@ -67,6 +67,7 @@ body {
   background-color: var(--color-background-500);
   border-radius: 0.9rem;
   position: relative;
+  min-height: 5rem;
 }
 
 .loader {
