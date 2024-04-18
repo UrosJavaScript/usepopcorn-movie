@@ -1,18 +1,31 @@
 import React from "react";
 
-const starStyle = {
-  height: "40px",
-  width: "40px",
-  display: "block",
-  cursor: "pointer",
-};
+export const StarIcon = ({
+  onRate,
+  full,
+  onHoverIn,
+  onHoverOut,
+  color,
+  size,
+}) => {
+  const starStyle = {
+    height: `${size}px`,
+    width: `${size}px`,
+    display: "block",
+    cursor: "pointer",
+  };
 
-export const StarIcon = ({ onRate, full }) => {
   return (
-    <span role="button" style={starStyle} onClick={onRate}>
+    <span
+      role="button"
+      style={starStyle}
+      onClick={onRate}
+      onMouseEnter={onHoverIn}
+      onMouseLeave={onHoverOut}
+    >
       {full ? (
         <svg
-          fill="#000000"
+          fill={color}
           viewBox="0 0 32 32"
           version="1.1"
           xmlns="http://www.w3.org/2000/svg"
