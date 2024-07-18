@@ -1,5 +1,9 @@
-import React from "react";
+import { FadeLoader } from "react-spinners";
 
 export const Loader = () => {
-  return <p className="loader">Loading...</p>;
+  return (
+    <div className="loader">
+      <FadeLoader color="#fff" />
+    </div>
+  );
 };

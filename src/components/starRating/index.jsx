@@ -5,6 +5,8 @@ const containerStyle = {
   display: "flex",
   alignItems: "center",
   gap: "16px",
+  flexWrap: "wrap",
+  justifyContent: "center",
 };
 const starContainerStyle = {
   display: "flex",
@@ -17,12 +19,14 @@ export const StarRating = ({
   className,
   messages = [],
   defaultRating = 0,
+  onSetRating,
 }) => {
   const [rating, setRating] = useState(defaultRating);
   const [tempRating, setTempRating] = useState(0);
 
   const handleRating = (rating) => {
     setRating(rating);
+    onSetRating(rating);
   };
 
   const textStyle = {
