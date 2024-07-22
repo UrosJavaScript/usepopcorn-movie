@@ -14,12 +14,16 @@ import { MovieDetails } from "./components/movieDetails";
 const KEY = process.env.REACT_APP_API_KEY;
 
 export default function App() {
-  const [query, setQuery] = useState("inception");
+  const [query, setQuery] = useState("");
   const [movies, setMovies] = useState([]);
-  const [watched, setWatched] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [selectedId, setSelectedId] = useState(null);
+
+  const [watched, setWatched] = useState(function () {
+    const storedValue = localStorage.getItem("watched");
+    return JSON.parse(storedValue);
+  });
 
   const handleSelectedMovie = (id) => {
     setSelectedId((selectedId) => (id === selectedId ? null : id));
@@ -33,6 +37,13 @@ export default function App() {
   const handleDeleteWatched = (id) => {
     setWatched((watched) => watched.filter((movie) => movie.imdbID !== id));
   };
+
+  useEffect(
+    function () {
+      localStorage.setItem("watched", JSON.stringify(watched));
+    },
+    [watched]
+  );
 
   useEffect(
     function () {
@@ -55,7 +66,6 @@ export default function App() {
           setMovies(data.Search);
           setError("");
         } catch (err) {
-          console.error("err console:", err.message);
           if (err.name !== "AbortError") {
             setError(err.message);
           }
@@ -69,6 +79,8 @@ export default function App() {
         setError("");
         return;
       }
+
+      handleCloseMovie();
 
       fetchMovies();
       return function () {

@@ -1,6 +1,13 @@
 import React from "react";
 
 export const WatchedMovie = ({ movie, onDeleteWatched }) => {
+  const runtime =
+    isNaN(movie.runtime) ||
+    movie.runtime === undefined ||
+    movie.runtime === null
+      ? 2
+      : movie.runtime;
+
   return (
     <li>
       <img src={movie.poster} alt={`${movie.title} poster`} />
@@ -16,7 +23,7 @@ export const WatchedMovie = ({ movie, onDeleteWatched }) => {
         </p>
         <p>
           <span>⏳</span>
-          <span>{movie.runtime || 0} min</span>
+          <span>{runtime} min</span>
         </p>
 
         <button

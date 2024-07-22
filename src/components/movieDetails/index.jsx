@@ -45,6 +45,20 @@ export const MovieDetails = ({
     onCloseMovie();
   };
 
+  useEffect(function () {
+    const callback = (e) => {
+      if (e.code === "Escape") {
+        onCloseMovie();
+      }
+    };
+
+    document.addEventListener("keydown", callback);
+
+    return function () {
+      document.removeEventListener("keydown", callback);
+    };
+  });
+
   useEffect(
     function () {
       async function getMovieDetails() {
@@ -111,7 +125,6 @@ export const MovieDetails = ({
                     size={24}
                     maxRating={10}
                     onSetRating={setUserRating}
-                    // key={selectedId}
                   />
 
                   {userRating > 0 && (
@@ -122,7 +135,7 @@ export const MovieDetails = ({
                 </>
               ) : (
                 <p>
-                  You rated with movie{" "}
+                  You rated with movie
                   <span>
                     <strong>{watchedUserRatinh}</strong>⭐
                   </span>
