@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { StarRating } from "../starRating";
 import { Loader } from "../loader";
+import { useKey } from "../../hooks/useKey";
+
 const KEY = process.env.REACT_APP_API_KEY;
+const DEFAULT_POSTER =
+  "https://images.unsplash.com/photo-1598899134739-24c46f58b8c0?q=80&w=2056&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
 
 export const MovieDetails = ({
   selectedId,
@@ -45,19 +49,7 @@ export const MovieDetails = ({
     onCloseMovie();
   };
 
-  useEffect(function () {
-    const callback = (e) => {
-      if (e.code === "Escape") {
-        onCloseMovie();
-      }
-    };
-
-    document.addEventListener("keydown", callback);
-
-    return function () {
-      document.removeEventListener("keydown", callback);
-    };
-  });
+  useKey("Escape", onCloseMovie);
 
   useEffect(
     function () {
@@ -99,7 +91,11 @@ export const MovieDetails = ({
               &#8592;
             </button>
 
-            <img src={poster} alt={`Poster of ${movie} movie`} />
+            <img
+              src={poster}
+              alt={`Poster of ${movie} movie`}
+              onError={(e) => (e.target.src = DEFAULT_POSTER)}
+            />
 
             <div className="details-overview">
               <h2>{title}</h2>

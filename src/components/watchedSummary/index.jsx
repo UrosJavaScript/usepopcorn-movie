@@ -1,6 +1,3 @@
-// const average = (arr) =>
-//   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
-
 const average = (arr) => {
   if (arr.length === 0) return 0;
   return arr.reduce((acc, cur) => acc + (cur || 2) / arr.length, 0);
@@ -10,7 +7,6 @@ export const WatchedSummary = ({ watched }) => {
   const avgImdbRating = average(watched.map((movie) => movie.imdbRating));
   const avgUserRating = average(watched.map((movie) => movie.userRating));
   const avgRuntime = average(watched.map((movie) => movie.runtime));
-
 
   return (
     <div className="summary">
